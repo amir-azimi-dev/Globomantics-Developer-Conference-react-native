@@ -1,6 +1,10 @@
 import { Text, View } from 'react-native';
+import { useSessionIdsQuery } from '~/RTK/graphql/generated';
 
 export const EditScreenInfo = ({ path }: { path: string }) => {
+  const { data } = useSessionIdsQuery({});
+  console.log(data)
+
   const title = 'Open up the code for this screen:';
   const description =
     'Change any of the text, save the file, and your app will automatically update.';

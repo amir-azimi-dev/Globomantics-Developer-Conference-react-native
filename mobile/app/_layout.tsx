@@ -1,6 +1,8 @@
-import '../global.css';
-
 import { Stack } from 'expo-router';
+import '../global.css';
+import { Provider } from 'react-redux';
+import store from '~/RTK/state/store';
+
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -9,9 +11,11 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-    </Stack>
+    <Provider store={store}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+      </Stack>
+    </Provider>
   );
 }
