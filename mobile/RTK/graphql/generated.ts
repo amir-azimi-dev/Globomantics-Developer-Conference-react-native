@@ -360,10 +360,14 @@ export type Resolvers<ContextType = any> = {
 
 
 
-export const SessionIdsDocument = `
-    query SessionIds {
+export const SessionsDocument = `
+    query Sessions {
   sessions {
     id
+    title
+    day
+    format
+    level
   }
 }
     `;
@@ -371,12 +375,12 @@ export const SessionIdsDocument = `
 const injectedRtkApi = api.injectEndpoints({
   overrideExisting: true,
   endpoints: (build) => ({
-    SessionIds: build.query<SessionIdsQuery, SessionIdsQueryVariables | void>({
-      query: (variables) => ({ document: SessionIdsDocument, variables })
+    Sessions: build.query<SessionsQuery, SessionsQueryVariables | void>({
+      query: (variables) => ({ document: SessionsDocument, variables })
     }),
   }),
 });
 
 export { injectedRtkApi as api };
-export const { useSessionIdsQuery, useLazySessionIdsQuery } = injectedRtkApi;
+export const { useSessionsQuery, useLazySessionsQuery } = injectedRtkApi;
 

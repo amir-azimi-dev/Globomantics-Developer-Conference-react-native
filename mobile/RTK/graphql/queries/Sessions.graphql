@@ -1,5 +1,9 @@
-query SessionIds {
+query Sessions {
     sessions {
-        id
+        id,
+        title,
+        day,
+        format,
+        level
     }
 }
