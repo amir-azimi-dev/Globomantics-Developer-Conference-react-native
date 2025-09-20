@@ -49,6 +49,13 @@
       "email": "mwarger@globomantics.com",
       "hash": "$2a$10$svx3EnsSXnwm8zRV9fPKv.tHibqu/ruBRJJAPXomEgpuiQvx1M.TS",
       "role": "ADMIN"
+    },
+    {
+      "id": "6",
+      "name": "Amir Azimi",
+      "email": "azymy1381@gmail.com",
+      "hash": "$2a$10$ej4kxAe0PDXyPkbf45syg.B8XSEMyoe4IW83CFO4wr9kk8uyfWDuq",
+      "role": "USER"
     }
   ]
 }

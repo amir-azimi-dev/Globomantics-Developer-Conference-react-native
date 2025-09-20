@@ -372,6 +372,18 @@ export const SignInDocument = `
   }
 }
     `;
+export const SignUpDocument = `
+    mutation SignUp($credentials: SignUp!) {
+  signUp(credentials: $credentials) {
+    token
+    user {
+      id
+      email
+      name
+    }
+  }
+}
+    `;
 export const SessionsDocument = `
     query Sessions {
   sessions {
@@ -398,6 +410,9 @@ const injectedRtkApi = api.injectEndpoints({
     SignIn: build.mutation<SignInMutation, SignInMutationVariables>({
       query: (variables) => ({ document: SignInDocument, variables })
     }),
+    SignUp: build.mutation<SignUpMutation, SignUpMutationVariables>({
+      query: (variables) => ({ document: SignUpDocument, variables })
+    }),
     Sessions: build.query<SessionsQuery, SessionsQueryVariables | void>({
       query: (variables) => ({ document: SessionsDocument, variables })
     }),
@@ -408,5 +423,5 @@ const injectedRtkApi = api.injectEndpoints({
 });
 
 export { injectedRtkApi as api };
-export const { useSignInMutation, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery } = injectedRtkApi;
+export const { useSignInMutation, useSignUpMutation, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery } = injectedRtkApi;
 

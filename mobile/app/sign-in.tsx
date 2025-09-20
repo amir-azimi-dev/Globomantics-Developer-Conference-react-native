@@ -1,5 +1,6 @@
 import { FC, useReducer } from "react";
 import { Image, Text, TextInput, View, Alert } from "react-native";
+import { Link } from "expo-router";
 import { Button } from "~/components/Button";
 import { useSignInMutation } from "~/RTK/graphql/generated";
 
@@ -37,8 +38,9 @@ const SignIn: FC = () => {
 
         const result = await signIn({ credentials: state });
         if (result.error) return Alert.alert("Invalid Data", "Authentication Failed! Check Your Entered Data.");
-        
-        console.log(result, "***")
+
+        const { token, user } = result.data.signIn;
+        console.log(token, user, "***");
     };
 
     return (
@@ -73,6 +75,11 @@ const SignIn: FC = () => {
             </View>
 
             <Button title="Sign In" className="w-full mt-5" onPress={signInHandler} />
+
+            <Text className="mt-5">
+                Don't have an account? {" "}
+                <Link href="/sign-up" className="font-bold">Sign Up</Link>
+            </Text>
         </View>
     );
 };

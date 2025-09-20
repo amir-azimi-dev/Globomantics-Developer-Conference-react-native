@@ -21,6 +21,11 @@ const Index: React.FC = () => {
             <Link href="/sign-in" asChild>
                 <Button title="Sign In to Get Started" />
             </Link>
+
+            <Text className="mt-5">
+                Don't have an account? {" "}
+                <Link href="/sign-up" className="font-bold">Sign Up</Link>
+            </Text>
         </View>
     )
 };
