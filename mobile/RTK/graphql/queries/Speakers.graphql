@@ -1,0 +1,6 @@
+query Speakers {
+    speakers {
+        id,
+        name
+    }
+}

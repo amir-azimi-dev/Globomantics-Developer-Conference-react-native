@@ -371,6 +371,14 @@ export const SessionsDocument = `
   }
 }
     `;
+export const SpeakersDocument = `
+    query Speakers {
+  speakers {
+    id
+    name
+  }
+}
+    `;
 
 const injectedRtkApi = api.injectEndpoints({
   overrideExisting: true,
@@ -378,9 +386,12 @@ const injectedRtkApi = api.injectEndpoints({
     Sessions: build.query<SessionsQuery, SessionsQueryVariables | void>({
       query: (variables) => ({ document: SessionsDocument, variables })
     }),
+    Speakers: build.query<SpeakersQuery, SpeakersQueryVariables | void>({
+      query: (variables) => ({ document: SpeakersDocument, variables })
+    }),
   }),
 });
 
 export { injectedRtkApi as api };
-export const { useSessionsQuery, useLazySessionsQuery } = injectedRtkApi;
+export const { useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery } = injectedRtkApi;
 

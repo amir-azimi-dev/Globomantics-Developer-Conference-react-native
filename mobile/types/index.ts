@@ -3,6 +3,12 @@ type Session = {
     title: string;
 };
 
+type Speaker = {
+    id: string;
+    name: string;
+};
+
 export {
-    Session
+    Session,
+    Speaker
 };

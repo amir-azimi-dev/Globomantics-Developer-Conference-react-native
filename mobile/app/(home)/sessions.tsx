@@ -19,7 +19,7 @@ export default function Sessions() {
   return (
     <View>
       <FlatList
-        data={manipulateSessions(data.sessions)}
+        data={data ? manipulateSessions(data.sessions) : []}
         keyExtractor={item => item.id}
         renderItem={({ item }) => <SessionItem {...item} />}
         ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200" />}
