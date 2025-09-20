@@ -18,8 +18,8 @@ const Index: React.FC = () => {
                 Explore speakers and sessions. Create an account to submit a session of your own!
             </Text>
 
-            <Link href="/(home)/sessions" asChild>
-                <Button title="Get Started" />
+            <Link href="/sign-in" asChild>
+                <Button title="Sign In to Get Started" />
             </Link>
         </View>
     )
