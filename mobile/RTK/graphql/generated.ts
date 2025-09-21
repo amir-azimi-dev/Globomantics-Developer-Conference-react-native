@@ -360,6 +360,18 @@ export type Resolvers<ContextType = any> = {
 
 
 
+export const MarkSessionAsFavoriteDocument = `
+    mutation MarkSessionAsFavorite($id: ID!) {
+  toggleFavoriteSession(sessionId: $id) {
+    id
+    name
+    favorites {
+      id
+      title
+    }
+  }
+}
+    `;
 export const SignInDocument = `
     mutation SignIn($credentials: SignIn!) {
   signIn(credentials: $credentials) {
@@ -415,10 +427,22 @@ export const SpeakersDocument = `
   }
 }
     `;
+export const UserFavoritesDocument = `
+    query UserFavorites {
+  me {
+    favorites {
+      id
+    }
+  }
+}
+    `;
 
 const injectedRtkApi = api.injectEndpoints({
   overrideExisting: true,
   endpoints: (build) => ({
+    MarkSessionAsFavorite: build.mutation<MarkSessionAsFavoriteMutation, MarkSessionAsFavoriteMutationVariables>({
+      query: (variables) => ({ document: MarkSessionAsFavoriteDocument, variables })
+    }),
     SignIn: build.mutation<SignInMutation, SignInMutationVariables>({
       query: (variables) => ({ document: SignInDocument, variables })
     }),
@@ -434,9 +458,12 @@ const injectedRtkApi = api.injectEndpoints({
     Speakers: build.query<SpeakersQuery, SpeakersQueryVariables | void>({
       query: (variables) => ({ document: SpeakersDocument, variables })
     }),
+    UserFavorites: build.query<UserFavoritesQuery, UserFavoritesQueryVariables | void>({
+      query: (variables) => ({ document: UserFavoritesDocument, variables })
+    }),
   }),
 });
 
 export { injectedRtkApi as api };
-export const { useSignInMutation, useSignOutMutation, useSignUpMutation, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery } = injectedRtkApi;
+export const { useMarkSessionAsFavoriteMutation, useSignInMutation, useSignOutMutation, useSignUpMutation, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery, useUserFavoritesQuery, useLazyUserFavoritesQuery } = injectedRtkApi;
 

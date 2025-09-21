@@ -55,7 +55,11 @@
       "name": "Amir Azimi",
       "email": "azymy1381@gmail.com",
       "hash": "$2a$10$ej4kxAe0PDXyPkbf45syg.B8XSEMyoe4IW83CFO4wr9kk8uyfWDuq",
-      "role": "USER"
+      "role": "USER",
+      "favorites": [
+        "84473",
+        "84375"
+      ]
     }
   ]
 }
