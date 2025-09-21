@@ -368,6 +368,17 @@ export const SignInDocument = `
       id
       email
       name
+      role
+    }
+  }
+}
+    `;
+export const SignOutDocument = `
+    mutation SignOut {
+  signOut {
+    user {
+      id
+      name
     }
   }
 }
@@ -380,6 +391,7 @@ export const SignUpDocument = `
       id
       email
       name
+      role
     }
   }
 }
@@ -410,6 +422,9 @@ const injectedRtkApi = api.injectEndpoints({
     SignIn: build.mutation<SignInMutation, SignInMutationVariables>({
       query: (variables) => ({ document: SignInDocument, variables })
     }),
+    SignOut: build.mutation<SignOutMutation, SignOutMutationVariables | void>({
+      query: (variables) => ({ document: SignOutDocument, variables })
+    }),
     SignUp: build.mutation<SignUpMutation, SignUpMutationVariables>({
       query: (variables) => ({ document: SignUpDocument, variables })
     }),
@@ -423,5 +438,5 @@ const injectedRtkApi = api.injectEndpoints({
 });
 
 export { injectedRtkApi as api };
-export const { useSignInMutation, useSignUpMutation, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery } = injectedRtkApi;
+export const { useSignInMutation, useSignOutMutation, useSignUpMutation, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery } = injectedRtkApi;
 

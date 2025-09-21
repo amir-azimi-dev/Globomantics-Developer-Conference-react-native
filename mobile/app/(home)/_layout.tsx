@@ -1,7 +1,12 @@
-import { Tabs } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { TabBarIcon } from "../../components/TabBarIcon";
+import { useAppSelector } from "~/RTK/state/store";
 
 export default function TabLayout() {
+  const userInfo = useAppSelector(state => state.auth);
+
+  if (!userInfo.token) <Redirect href="/" />;
+
   return (
     <Tabs
       screenOptions={{
@@ -10,7 +15,10 @@ export default function TabLayout() {
       }}>
       <Tabs.Screen
         name="index"
-        options={{ href: null }}
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />
+        }}
       />
       <Tabs.Screen
         name="sessions"

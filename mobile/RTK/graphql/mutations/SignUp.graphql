@@ -4,7 +4,8 @@ mutation SignUp($credentials: SignUp!) {
         user {
             id,
             email,
-            name
+            name,
+            role
         }
     }
 }

@@ -1,8 +1,10 @@
-import { FC, useReducer } from "react";
+import { FC, useEffect, useReducer } from "react";
 import { Image, Text, TextInput, View, Alert } from "react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Button } from "~/components/Button";
 import { useSignUpMutation } from "~/RTK/graphql/generated";
+import { updateCredentials } from "~/RTK/slices/auth";
+import { UseAppDispatch, useAppSelector } from "~/RTK/state/store";
 
 type State = {
     name: string;
@@ -37,7 +39,15 @@ const reducer = (state: State, action: Action): State => {
 
 const SignUp: FC = () => {
     const [state, dispatch] = useReducer(reducer, { name: "", email: "", password: "", repeatPassword: "" });
+    const userInfo = useAppSelector(state => state.auth);
+    const authDispatch = UseAppDispatch();
+
     const [signUp] = useSignUpMutation();
+
+    useEffect(() => {
+        if (userInfo.token) router.replace("/(home)");
+
+    }, [userInfo.token]);
 
     const inputChangeHandler = (actionType: ActionTypes, newValue: string): void => {
         dispatch({ type: actionType, payload: newValue });
@@ -57,7 +67,8 @@ const SignUp: FC = () => {
         if (result.error) return Alert.alert("Invalid Data", "Authentication Failed! Check Your Entered Data.");
 
         const { token, user } = result.data.signUp;
-        console.log(token, user, "***");
+        authDispatch(updateCredentials({ user, token }));
+        router.replace("/(home)");
     };
 
     return (
@@ -84,6 +95,7 @@ const SignUp: FC = () => {
                 <TextInput
                     inputMode="email"
                     placeholder="Email Address"
+                    autoCapitalize="none"
                     value={state.email}
                     onChangeText={inputChangeHandler.bind(this, "SET_EMAIL")}
                     className="p-3 border border-gray-400 rounded-lg font-bold text-xl"
