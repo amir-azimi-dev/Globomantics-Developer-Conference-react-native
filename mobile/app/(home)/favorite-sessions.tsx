@@ -33,7 +33,7 @@ export default function FavoriteSessions() {
   const userFavoriteSessionsIds = data?.me?.favorites || [];
 
   return (
-    <View className={(isFetchingData) ? "opacity-50" : "opacity-100"}>
+    <View className={(isFetchingData || isFetching) ? "opacity-50" : "opacity-100"}>
       {!userFavoriteSessionsIds.length ? (
         <View className="h-full justify-center items-center">
           <Text className="font-bold text-2xl text-center">No Favorite Session Yet!</Text>

@@ -16,10 +16,47 @@ const enhancedApi = api.enhanceEndpoints({
             providesTags: ["FavoriteSessions"]
         },
         MarkSessionAsFavorite: {
-            invalidatesTags: ["UserFavorites", "FavoriteSessions"]
+            invalidatesTags: ["FavoriteSessions"],
+            onQueryStarted: async ({ id }, { dispatch, queryFulfilled }) => {
+                const userFavoritesDispatchResult = dispatch(
+                    enhancedApi.util.updateQueryData(
+                        "UserFavorites",
+                        {},
+                        draft => {
+                            const currentFavoriteSessionsIds = draft?.me?.favorites?.map((item: { id: string }) => item.id);
+                            if (currentFavoriteSessionsIds.includes(id)) {
+                                draft.me.favorites = draft.me.favorites.filter((item: { id: string }) => item.id !== id);
+                            } else {
+                                draft.me.favorites.push({ id });
+                            }
+                        }
+                    )
+                );
+
+                const favoriteSessionsDispatchResult = dispatch(
+                    enhancedApi.util.updateQueryData(
+                        "FavoriteSessions",
+                        {},
+                        draft => {
+                            const currentFavoriteSessionsIds = draft?.me?.favorites?.map((item: { id: string }) => item.id);
+                            if (currentFavoriteSessionsIds.includes(id)) {
+                                draft.me.favorites = draft.me.favorites.filter((item: { id: string }) => item.id !== id);
+                            }
+                        }
+                    )
+                );
+
+                try {
+                    await queryFulfilled;
+                } catch {
+                    userFavoritesDispatchResult.undo();
+                    favoriteSessionsDispatchResult.undo();
+                }
+            }
         }
     }
 });
+
 
 export const {
     useSessionsQuery,

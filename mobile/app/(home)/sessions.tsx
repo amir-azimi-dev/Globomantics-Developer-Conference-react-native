@@ -41,15 +41,17 @@ export default function Sessions() {
   const userFavoriteSessionsIds = userFavorites?.me?.favorites.map((item: { id: string }) => item.id) || [];
 
   return (
-    <View className={(isFetchingData || isFetchingFavorites) ? "opacity-50" : "opacity-100"}>
+    <View className={(isFetchingData  || isFetchingFavorites) ? "opacity-50" : "opacity-100"}>
       <FlatList
         data={data ? manipulateSessions(data.sessions) : []}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <SessionItem
-          {...item}
-          onToggleFavoriteStatus={toggleFavoriteStatusHandler}
-          isFavorite={userFavoriteSessionsIds.includes(item.id)}
-        />}
+        renderItem={({ item }) => (
+          <SessionItem
+            {...item}
+            onToggleFavoriteStatus={toggleFavoriteStatusHandler}
+            isFavorite={userFavoriteSessionsIds.includes(item.id)}
+          />
+        )}
         ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200" />}
         onRefresh={() => {
           refetch();
