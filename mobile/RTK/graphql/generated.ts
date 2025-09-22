@@ -408,6 +408,19 @@ export const SignUpDocument = `
   }
 }
     `;
+export const FavoriteSessionsDocument = `
+    query FavoriteSessions {
+  me {
+    favorites {
+      id
+      title
+      day
+      format
+      level
+    }
+  }
+}
+    `;
 export const SessionsDocument = `
     query Sessions {
   sessions {
@@ -452,6 +465,9 @@ const injectedRtkApi = api.injectEndpoints({
     SignUp: build.mutation<SignUpMutation, SignUpMutationVariables>({
       query: (variables) => ({ document: SignUpDocument, variables })
     }),
+    FavoriteSessions: build.query<FavoriteSessionsQuery, FavoriteSessionsQueryVariables | void>({
+      query: (variables) => ({ document: FavoriteSessionsDocument, variables })
+    }),
     Sessions: build.query<SessionsQuery, SessionsQueryVariables | void>({
       query: (variables) => ({ document: SessionsDocument, variables })
     }),
@@ -465,5 +481,5 @@ const injectedRtkApi = api.injectEndpoints({
 });
 
 export { injectedRtkApi as api };
-export const { useMarkSessionAsFavoriteMutation, useSignInMutation, useSignOutMutation, useSignUpMutation, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery, useUserFavoritesQuery, useLazyUserFavoritesQuery } = injectedRtkApi;
+export const { useMarkSessionAsFavoriteMutation, useSignInMutation, useSignOutMutation, useSignUpMutation, useFavoriteSessionsQuery, useLazyFavoriteSessionsQuery, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery, useUserFavoritesQuery, useLazyUserFavoritesQuery } = injectedRtkApi;
 

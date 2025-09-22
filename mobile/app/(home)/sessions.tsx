@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ActivityIndicator, Alert, FlatList, Text, View } from "react-native";
 import SessionItem from "~/components/SessionItem";
-import { useMarkSessionAsFavoriteMutation, useSessionsQuery, useUserFavoritesQuery } from "~/RTK/graphql/generated";
+import { useMarkSessionAsFavoriteMutation, useSessionsQuery, useUserFavoritesQuery } from "~/RTK/graphql/enhanced";
 import { Session } from "~/types";
 
 export default function Sessions() {
@@ -33,8 +33,6 @@ export default function Sessions() {
     setIsFetchingData(false);
 
     if (result.error) return Alert.alert("Error", "Error while making this item as favorite!");
-
-    refetchFavorites();
   };
 
   if (isLoading || isLoadingFavorites) return <ActivityIndicator size="large" className="flex-1" />;
