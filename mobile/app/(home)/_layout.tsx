@@ -30,7 +30,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="sessions"
         options={{
-          title: "Sessions",
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="calendar-o" color={color} />
         }}
       />

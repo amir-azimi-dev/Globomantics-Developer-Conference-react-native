@@ -360,6 +360,17 @@ export type Resolvers<ContextType = any> = {
 
 
 
+export const CreateSessionDocument = `
+    mutation CreateSession($session: SessionInput!) {
+  createSession(session: $session) {
+    id
+    title
+    description
+    format
+    level
+  }
+}
+    `;
 export const MarkSessionAsFavoriteDocument = `
     mutation MarkSessionAsFavorite($id: ID!) {
   toggleFavoriteSession(sessionId: $id) {
@@ -453,6 +464,9 @@ export const UserFavoritesDocument = `
 const injectedRtkApi = api.injectEndpoints({
   overrideExisting: true,
   endpoints: (build) => ({
+    CreateSession: build.mutation<CreateSessionMutation, CreateSessionMutationVariables>({
+      query: (variables) => ({ document: CreateSessionDocument, variables })
+    }),
     MarkSessionAsFavorite: build.mutation<MarkSessionAsFavoriteMutation, MarkSessionAsFavoriteMutationVariables>({
       query: (variables) => ({ document: MarkSessionAsFavoriteDocument, variables })
     }),
@@ -481,5 +495,5 @@ const injectedRtkApi = api.injectEndpoints({
 });
 
 export { injectedRtkApi as api };
-export const { useMarkSessionAsFavoriteMutation, useSignInMutation, useSignOutMutation, useSignUpMutation, useFavoriteSessionsQuery, useLazyFavoriteSessionsQuery, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery, useUserFavoritesQuery, useLazyUserFavoritesQuery } = injectedRtkApi;
+export const { useCreateSessionMutation, useMarkSessionAsFavoriteMutation, useSignInMutation, useSignOutMutation, useSignUpMutation, useFavoriteSessionsQuery, useLazyFavoriteSessionsQuery, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery, useUserFavoritesQuery, useLazyUserFavoritesQuery } = injectedRtkApi;
 

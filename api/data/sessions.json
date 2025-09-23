@@ -998,6 +998,32 @@
       "description": "GraphQL is a great way to fetch data!",
       "format": "Keynote",
       "level": "Advanced"
+    },
+    {
+      "id": 57,
+      "speakers": [
+        {
+          "id": "6",
+          "name": "Amir Azimi"
+        }
+      ],
+      "title": "Title of Session ***",
+      "description": "Description of Session ***",
+      "format": "Lecture",
+      "level": "Advanced"
+    },
+    {
+      "id": 58,
+      "speakers": [
+        {
+          "id": "6",
+          "name": "Amir Azimi"
+        }
+      ],
+      "title": "Ddsfdsfds",
+      "description": "Sdfsdfdfdsfdsf",
+      "format": "Workshop",
+      "level": "Intermediate"
     }
   ]
 }
