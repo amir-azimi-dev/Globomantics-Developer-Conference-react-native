@@ -359,18 +359,22 @@ export type Resolvers<ContextType = any> = {
 };
 
 
-
+export const SessionFragmentDoc = `
+    fragment Session on Session {
+  id
+  title
+  day
+  format
+  level
+}
+    `;
 export const CreateSessionDocument = `
     mutation CreateSession($session: SessionInput!) {
   createSession(session: $session) {
-    id
-    title
-    description
-    format
-    level
+    ...Session
   }
 }
-    `;
+    ${SessionFragmentDoc}`;
 export const MarkSessionAsFavoriteDocument = `
     mutation MarkSessionAsFavorite($id: ID!) {
   toggleFavoriteSession(sessionId: $id) {
@@ -432,17 +436,28 @@ export const FavoriteSessionsDocument = `
   }
 }
     `;
+export const MySessionsDocument = `
+    query MySessions {
+  me {
+    name
+    email
+    speaker {
+      id
+      name
+      sessions {
+        ...Session
+      }
+    }
+  }
+}
+    ${SessionFragmentDoc}`;
 export const SessionsDocument = `
     query Sessions {
   sessions {
-    id
-    title
-    day
-    format
-    level
+    ...Session
   }
 }
-    `;
+    ${SessionFragmentDoc}`;
 export const SpeakersDocument = `
     query Speakers {
   speakers {
@@ -482,6 +497,9 @@ const injectedRtkApi = api.injectEndpoints({
     FavoriteSessions: build.query<FavoriteSessionsQuery, FavoriteSessionsQueryVariables | void>({
       query: (variables) => ({ document: FavoriteSessionsDocument, variables })
     }),
+    MySessions: build.query<MySessionsQuery, MySessionsQueryVariables | void>({
+      query: (variables) => ({ document: MySessionsDocument, variables })
+    }),
     Sessions: build.query<SessionsQuery, SessionsQueryVariables | void>({
       query: (variables) => ({ document: SessionsDocument, variables })
     }),
@@ -495,5 +513,5 @@ const injectedRtkApi = api.injectEndpoints({
 });
 
 export { injectedRtkApi as api };
-export const { useCreateSessionMutation, useMarkSessionAsFavoriteMutation, useSignInMutation, useSignOutMutation, useSignUpMutation, useFavoriteSessionsQuery, useLazyFavoriteSessionsQuery, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery, useUserFavoritesQuery, useLazyUserFavoritesQuery } = injectedRtkApi;
+export const { useCreateSessionMutation, useMarkSessionAsFavoriteMutation, useSignInMutation, useSignOutMutation, useSignUpMutation, useFavoriteSessionsQuery, useLazyFavoriteSessionsQuery, useMySessionsQuery, useLazyMySessionsQuery, useSessionsQuery, useLazySessionsQuery, useSpeakersQuery, useLazySpeakersQuery, useUserFavoritesQuery, useLazyUserFavoritesQuery } = injectedRtkApi;
 

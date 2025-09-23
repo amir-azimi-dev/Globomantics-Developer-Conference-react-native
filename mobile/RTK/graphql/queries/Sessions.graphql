@@ -1,9 +1,5 @@
 query Sessions {
     sessions {
-        id,
-        title,
-        day,
-        format,
-        level
+        ...Session
     }
 }

@@ -31,13 +31,6 @@ const server = new ApolloServer<Context>({
 
 await server.start();
 
-app.use(function (req, res, next) {
-  setTimeout(() => {
-    console.log('requesting now');
-    next();
-  }, 1000);
-});
-
 app.use(
   '/graphql',
   cors<cors.CorsRequest>(),

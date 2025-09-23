@@ -1,10 +1,13 @@
 import { api } from "./generated";
 
 const enhancedApi = api.enhanceEndpoints({
-    addTagTypes: ["Sessions", "Speakers", "UserFavorites", "FavoriteSessions"],
+    addTagTypes: ["Sessions", "UserSessions", "Speakers", "UserFavorites", "FavoriteSessions"],
     endpoints: {
         Sessions: {
             providesTags: ["Sessions"]
+        },
+        MySessions: {
+            providesTags: ["UserSessions"]
         },
         Speakers: {
             providesTags: ["Speakers"]
@@ -16,7 +19,7 @@ const enhancedApi = api.enhanceEndpoints({
             providesTags: ["FavoriteSessions"]
         },
         CreateSession: {
-            invalidatesTags: ["Sessions"]
+            invalidatesTags: ["Sessions", "UserSessions"]
         },
         MarkSessionAsFavorite: {
             invalidatesTags: ["FavoriteSessions"],

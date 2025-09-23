@@ -1,9 +1,5 @@
 mutation CreateSession($session: SessionInput!) {
     createSession(session: $session) {
-        id,
-        title,
-        description,
-        format,
-        level
+        ...Session
     }
 }
